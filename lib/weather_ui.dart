@@ -161,7 +161,7 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                             ),
                             Text(
                               'Current City : ${weather?.areaName.toString()}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                               ),
                             ),
@@ -170,14 +170,14 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                             ),
                             ref.watch(weatherProvider).temperature == null
                                 ? Text(
-                                    'Current Temparature : ${weather?.temperature.toString()}',
-                                    style: TextStyle(
+                                    'Current Temparature : ${weather?.temperature.toString()} C',
+                                    style: const TextStyle(
                                       color: Colors.black,
                                     ),
                                   )
                                 : Text(
-                                    'Selected Day Temparature : ${ref.watch(weatherProvider).temperature.toString()}',
-                                    style: TextStyle(
+                                    'Selected Day Temparature : ${ref.watch(weatherProvider).temperature.toString()} C',
+                                    style: const TextStyle(
                                       color: Colors.black,
                                     ),
                                   ),
@@ -186,11 +186,11 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                             ),
                             ref.watch(weatherProvider).windSpeed == null
                                 ? Text(
-                                    'Wind Speed : ${weather?.windSpeed.toString()}',
-                                    style: TextStyle(color: Colors.black))
+                                    'Wind Speed : ${weather?.windSpeed.toString()} km/h',
+                                    style: const TextStyle(color: Colors.black))
                                 : Text(
-                                    'Wind Speed : ${ref.watch(weatherProvider).windSpeed.toString()}',
-                                    style: TextStyle(color: Colors.black)),
+                                    'Wind Speed : ${ref.watch(weatherProvider).windSpeed.toString()} km/h',
+                                    style: const TextStyle(color: Colors.black)),
                             const SizedBox(
                               height: 8,
                             ),
@@ -207,7 +207,7 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                                     height: 150,
                                     child: ListView.builder(
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics: const NeverScrollableScrollPhysics(),
                                       scrollDirection: Axis.horizontal,
                                       itemCount: 7,
                                       itemBuilder:
@@ -245,22 +245,22 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                                               Text(
                                                 DateFormat('E')
                                                     .format(currentDate),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black),
                                               ),
                                               Text(
                                                 formattedDate,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black),
                                               ),
                                               Text(
                                                 'Temp: $temperature°C',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black),
                                               ),
                                               Text(
                                                 'Wind: $windSpeed km/h',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black),
                                               ),
                                             ],
@@ -321,22 +321,22 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                                               Text(
                                                 DateFormat('E')
                                                     .format(currentDate),
-                                                style: TextStyle(
+                                                style:const TextStyle(
                                                     color: Colors.black),
                                               ),
                                               Text(
                                                 formattedDate,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black),
                                               ),
                                               Text(
                                                 'Temp: $temperature°C',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black),
                                               ),
                                               Text(
                                                 'Wind: $windSpeed km/h',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black),
                                               ),
                                             ],
