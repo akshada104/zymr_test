@@ -109,14 +109,15 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                             selectedDayHighlightColor: Colors.white60,
                             selectedRangeHighlightColor: Colors.white60,
                             currentDate: DateTime.now(),
+                            lastDate: DateTime.now(),
                             weekdayLabelTextStyle: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                             ),
                             selectedDayTextStyle: const TextStyle(
-                              decorationColor: Colors.white,
-                              color: Colors.white,
+                              decorationColor: Colors.deepPurpleAccent,
+                              color: Colors.deepPurpleAccent,
                               shadows: [
                                 Shadow(
                                   blurRadius: 10.0,
@@ -235,7 +236,7 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
 
                                         return Container(
                                           height: 150,
-                                          width: 100,
+                                          width: 130,
                                           margin: EdgeInsets.all(5),
                                           color: Colors.white,
                                           child: Column(
@@ -311,7 +312,7 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
 
                                         return Container(
                                           height: 150,
-                                          width: 100,
+                                          width: 130,
                                           margin: EdgeInsets.all(5),
                                           color: Colors.white,
                                           child: Column(
