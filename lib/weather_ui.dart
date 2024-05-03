@@ -237,8 +237,14 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                                         return Container(
                                           height: 150,
                                           width: 130,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            border: Border.all(
+                                              color: Colors.white60,
+                                              width: 2.0,
+                                            ),
+                                          ),
                                           margin: EdgeInsets.all(5),
-                                          color: Colors.white,
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -313,8 +319,14 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                                         return Container(
                                           height: 150,
                                           width: 130,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            border: Border.all(
+                                              color: Colors.white60,
+                                              width: 2.0,
+                                            ),
+                                          ),
                                           margin: EdgeInsets.all(5),
-                                          color: Colors.white,
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
