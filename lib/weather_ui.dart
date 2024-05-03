@@ -153,7 +153,7 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                     color: Colors.white60,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  height: MediaQuery.of(context).size.height * 0.15,
+                  height: MediaQuery.of(context).size.height * 0.13,
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Column(
                     children: [
@@ -194,12 +194,6 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                       const SizedBox(
                         height: 8,
                       ),
-                      ref.watch(weatherProvider).humidity == null
-                          ? Text('Humidity : ${weather?.humidity.toString()}',
-                              style: TextStyle(color: Colors.black))
-                          : Text(
-                              'Humidity : ${ref.watch(weatherProvider).humidity.toString()}',
-                              style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
