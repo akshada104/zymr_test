@@ -63,10 +63,10 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
           ),
           SingleChildScrollView(
             child: ref.watch(weatherProvider).isLoading
-                ? const LinearProgressIndicator():
-            Column(
-              children: [
-                     Padding(
+                ? const LinearProgressIndicator()
+                : Column(
+                    children: [
+                      Padding(
                         padding: const EdgeInsets.only(top: 40.0, right: 20.0),
                         child: Align(
                           alignment: Alignment.topRight,
@@ -102,223 +102,255 @@ class WeatherUIState extends ConsumerState<WeatherUI> {
                           ),
                         ),
                       ),
-                Container(
-                  child: CalendarDatePicker2(
-                    config: CalendarDatePicker2Config(
-                      calendarType: CalendarDatePicker2Type.single,
-                      selectedDayHighlightColor: Colors.white60,
-                      selectedRangeHighlightColor: Colors.white60,
-                      currentDate: DateTime.now(),
-                      weekdayLabelTextStyle: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                      selectedDayTextStyle: const TextStyle(
-                        decorationColor: Colors.white,
-                        color: Colors.white,
-                        shadows: [
-                          Shadow(
-                            blurRadius: 10.0,
-                            color: Colors.transparent,
-                            offset: Offset(0, 0),
+                      Container(
+                        child: CalendarDatePicker2(
+                          config: CalendarDatePicker2Config(
+                            calendarType: CalendarDatePicker2Type.single,
+                            selectedDayHighlightColor: Colors.white60,
+                            selectedRangeHighlightColor: Colors.white60,
+                            currentDate: DateTime.now(),
+                            weekdayLabelTextStyle: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                            selectedDayTextStyle: const TextStyle(
+                              decorationColor: Colors.white,
+                              color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.transparent,
+                                  offset: Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                            controlsTextStyle: const TextStyle(
+                              color: Colors.white60,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            firstDayOfWeek: 0,
                           ),
-                        ],
-                      ),
-                      controlsTextStyle: const TextStyle(
-                        color: Colors.white60,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      firstDayOfWeek: 0,
-                    ),
-                    value: selectedDates,
-                    onValueChanged: (newDate) async {
-                      selectedDates = newDate;
-                      DateTime dateTime =
-                          DateTime.parse(selectedDates[0].toString());
-                      DateTime dateOnly =
-                          DateTime(dateTime.year, dateTime.month, dateTime.day);
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(dateOnly);
-            
-                      await ref
-                          .read(weatherProvider)
-                          .fetchHistoryWeather(formattedDate, formattedDate);
-                    },
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white60,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  height: MediaQuery.of(context).size.height * 0.13,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        'Current City : ${weather?.areaName.toString()}',
-                        style: TextStyle(
-                          color: Colors.black,
+                          value: selectedDates,
+                          onValueChanged: (newDate) async {
+                            selectedDates = newDate;
+                            DateTime dateTime =
+                                DateTime.parse(selectedDates[0].toString());
+                            DateTime dateOnly = DateTime(
+                                dateTime.year, dateTime.month, dateTime.day);
+                            String formattedDate =
+                                DateFormat('yyyy-MM-dd').format(dateOnly);
+
+                            await ref.read(weatherProvider).fetchHistoryWeather(
+                                formattedDate, formattedDate);
+                          },
                         ),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      ref.watch(weatherProvider).temperature == null
-                          ? Text(
-                              'Current Temparature : ${weather?.temperature.toString()}',
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            )
-                          : Text(
-                              'Selected Day Temparature : ${ref.watch(weatherProvider).temperature.toString()}',
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white60,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        height: MediaQuery.of(context).size.height * 0.13,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              'Current City : ${weather?.areaName.toString()}',
                               style: TextStyle(
                                 color: Colors.black,
                               ),
                             ),
-                      const SizedBox(
-                        height: 8,
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            ref.watch(weatherProvider).temperature == null
+                                ? Text(
+                                    'Current Temparature : ${weather?.temperature.toString()}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  )
+                                : Text(
+                                    'Selected Day Temparature : ${ref.watch(weatherProvider).temperature.toString()}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            ref.watch(weatherProvider).windSpeed == null
+                                ? Text(
+                                    'Wind Speed : ${weather?.windSpeed.toString()}',
+                                    style: TextStyle(color: Colors.black))
+                                : Text(
+                                    'Wind Speed : ${ref.watch(weatherProvider).windSpeed.toString()}',
+                                    style: TextStyle(color: Colors.black)),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                          ],
+                        ),
                       ),
-                      ref.watch(weatherProvider).windSpeed == null
-                          ? Text('Wind Speed : ${weather?.windSpeed.toString()}',
-                              style: TextStyle(color: Colors.black))
-                          : Text(
-                              'Wind Speed : ${ref.watch(weatherProvider).windSpeed.toString()}',
-                              style: TextStyle(color: Colors.black)),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      fetchedData?.length != 0
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: SizedBox(
+                                    height: 150,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 7,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        String date =
+                                            fetchedData?['weatherData']['time']
+                                                [index];
+                                        double temperature =
+                                            fetchedData?['weatherData']
+                                                        ['temperature_2m_max']
+                                                    [index] ??
+                                                0.0;
+                                        double windSpeed =
+                                            fetchedData?['weatherData']
+                                                        ['windspeed_10m_max']
+                                                    [index] ??
+                                                0.0;
+
+                                        DateTime currentDate =
+                                            DateFormat('yyyy-MM-dd')
+                                                .parse(date);
+                                        String formattedDate =
+                                            DateFormat('MMM d')
+                                                .format(currentDate);
+
+                                        return Container(
+                                          height: 150,
+                                          width: 100,
+                                          margin: EdgeInsets.all(5),
+                                          color: Colors.white,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                DateFormat('E')
+                                                    .format(currentDate),
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              Text(
+                                                formattedDate,
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              Text(
+                                                'Temp: $temperature°C',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              Text(
+                                                'Wind: $windSpeed km/h',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : const SizedBox(),
+                      fetchedFutureData?.length != 0
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: SizedBox(
+                                    height: 150,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 7,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        String date =
+                                            fetchedFutureData?['weatherData']
+                                                ['time'][index];
+                                        double temperature =
+                                            fetchedFutureData?['weatherData']
+                                                        ['temperature_2m_max']
+                                                    [index] ??
+                                                0.0;
+                                        double windSpeed =
+                                            fetchedFutureData?['weatherData']
+                                                        ['windspeed_10m_max']
+                                                    [index] ??
+                                                0.0;
+
+                                        DateTime currentDate =
+                                            DateFormat('yyyy-MM-dd')
+                                                .parse(date);
+                                        String formattedDate =
+                                            DateFormat('MMM d')
+                                                .format(currentDate);
+
+                                        return Container(
+                                          height: 150,
+                                          width: 100,
+                                          margin: EdgeInsets.all(5),
+                                          color: Colors.white,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                DateFormat('E')
+                                                    .format(currentDate),
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              Text(
+                                                formattedDate,
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              Text(
+                                                'Temp: $temperature°C',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              Text(
+                                                'Wind: $windSpeed km/h',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : const SizedBox(),
                     ],
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: SizedBox(
-                        height: 150,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 7,
-                          itemBuilder: (BuildContext context, int index) {
-                            String date =
-                                fetchedData?['weatherData']['time'][index];
-                            double temperature = fetchedData?['weatherData']
-                                    ['temperature_2m_max'][index] ??
-                                0.0;
-                            double windSpeed = fetchedData?['weatherData']
-                                    ['windspeed_10m_max'][index] ??
-                                0.0;
-            
-                            DateTime currentDate =
-                                DateFormat('yyyy-MM-dd').parse(date);
-                            String formattedDate =
-                                DateFormat('MMM d').format(currentDate);
-            
-                            return Container(
-                              height: 150,
-                              width: 100,
-                              margin: EdgeInsets.all(5),
-                              color: Colors.white,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    DateFormat('E').format(currentDate),
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  Text(
-                                    formattedDate,
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  Text(
-                                    'Temp: $temperature°C',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  Text(
-                                    'Wind: $windSpeed km/h',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: SizedBox(
-                        height: 150,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 7,
-                          itemBuilder: (BuildContext context, int index) {
-                            String date =
-                                fetchedFutureData?['weatherData']['time'][index];
-                            double temperature = fetchedFutureData?['weatherData']
-                                    ['temperature_2m_max'][index] ??
-                                0.0;
-                            double windSpeed = fetchedFutureData?['weatherData']
-                                    ['windspeed_10m_max'][index] ??
-                                0.0;
-
-                            DateTime currentDate =
-                                DateFormat('yyyy-MM-dd').parse(date);
-                            String formattedDate =
-                                DateFormat('MMM d').format(currentDate);
-
-                            return Container(
-                              height: 150,
-                              width: 100,
-                              margin: EdgeInsets.all(5),
-                              color: Colors.white,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    DateFormat('E').format(currentDate),
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  Text(
-                                    formattedDate,
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  Text(
-                                    'Temp: $temperature°C',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  Text(
-                                    'Wind: $windSpeed km/h',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
           ),
         ],
       ),

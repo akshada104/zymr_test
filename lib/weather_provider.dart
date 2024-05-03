@@ -147,6 +147,7 @@ class WeatherProvider extends ChangeNotifier {
           'windSpeed': windSpeed,
         };
       }
+
     } catch (e) {
       print('Error fetching weather data: $e');
     }
